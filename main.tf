@@ -110,10 +110,6 @@ resource "ibm_container_vpc_cluster" "cluster" {
   }
 }
 
-locals {
-  zone_keys = keys(ibm_is_subnet.subnets)[*]
-}
-
 resource "ibm_container_vpc_worker_pool" "ocs_pool" {
 
   depends_on = [

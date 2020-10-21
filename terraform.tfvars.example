@@ -10,5 +10,24 @@ create_resource_group = false
 # This is only used as the resource name and has no bearing on the cluster addresses
 cluster_name          = "terraform-roks-vpc"
 
+#Following variables are all optional to set - listed below with their default values
+
 #these tags will be applied to every resource that can have tags applied
-tags                  = ["create:terraform", "owner:automation", "project:automation"]
+# tags                  = []
+
+# region = eu-gb
+
+# this is the compute flavor that will be used for the default worker pool of the cluster
+# options can be seen with the command: `ibmcloud ks flavors --zone $ZONE --provider vpc-gen2`
+
+# worker_flavor = "bx2.4x16"
+
+# number of workers created per zone in the default pool (this automation provisions across 3 zones)
+# workers_per_zone = 1
+
+# This is the compute flavor for the OCS workers - it is highly recommended to use at least this flavor or one with higher compute (16 vCPU, 64GB RAM)
+# ocs_flavor = "bx2.16x64"
+
+# Whether the license entitlement should come from existing cloud pak licenses or require a new license
+
+# entitlement = "cloudpak"

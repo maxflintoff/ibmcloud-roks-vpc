@@ -5,6 +5,11 @@ This repository houses a set of automation for deploying infrastructure, a ROKS 
 ## Prerequisites
 
 - terraform > 0.13.4
+- [ibmcloud cli](https://cloud.ibm.com/docs/cli)
+- [jq](https://stedolan.github.io/jq/)
+- [openshift cli](https://docs.openshift.com/container-platform/4.5/cli_reference/openshift_cli/getting-started-cli.html#installing-the-cli)
+
+All the cli tools should be in your path
 
 ## Variables
 
