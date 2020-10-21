@@ -4,11 +4,11 @@ variable "ibmcloud_api_key" {
 }
 
 variable "resource_group" {
-  type    = string
+  type = string
 }
 
 variable "create_resource_group" {
-  type    = bool
+  type = bool
 }
 
 variable "cluster_name" {
