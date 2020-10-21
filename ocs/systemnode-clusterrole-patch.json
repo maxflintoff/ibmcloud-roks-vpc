@@ -1,0 +1,19 @@
+{
+  "rules": [
+    {
+      "verbs": [
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list"
+      ],
+      "apiGroups": [
+        "storage.k8s.io"
+      ],
+      "resources": [
+        "volumeattachments"
+      ]
+    }
+  ]
+}

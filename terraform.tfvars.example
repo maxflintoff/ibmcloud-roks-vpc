@@ -1,0 +1,14 @@
+# Your IBM Cloud API Key for the user that will create and own all resources
+ibmcloud_api_key      = ""
+
+# All resources will be added to this resource group
+resource_group        = "Default"
+
+# If you set this to true then terraform will also manage your resource group - it's recommended to create one manually however as it rarely can be destroyed in sequence
+create_resource_group = false
+
+# This is only used as the resource name and has no bearing on the cluster addresses
+cluster_name          = "terraform-roks-vpc"
+
+#these tags will be applied to every resource that can have tags applied
+tags                  = ["create:terraform", "owner:automation", "project:automation"]

@@ -1,0 +1,70 @@
+{
+  "spec": {
+    "selector": {
+      "matchLabels": {
+        "app": "csi-cephfsplugin"
+      }
+    },
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "csi-cephfsplugin",
+          "contains": "csi-cephfsplugin-metrics"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "driver-registrar",
+            "args": [
+              "--v=5",
+              "--csi-address=/csi/csi.sock",
+              "--kubelet-registration-path=/var/data/kubelet/plugins/openshift-storage.cephfs.csi.ceph.com/csi.sock"
+            ]
+          },
+          {
+            "name": "csi-cephfsplugin",
+            "volumeMounts": [
+              {
+                "name": "csi-plugins-dir",
+                "mountPath": "/var/data/kubelet/plugins",
+                "mountPropagation": "Bidirectional"
+              },
+              {
+                "name": "pods-mount-dir",
+                "mountPath": "/var/data/kubelet/pods",
+                "mountPropagation": "Bidirectional"
+              }
+            ]
+          }
+        ],
+        "volumes": [
+          {
+            "name": "plugin-dir",
+            "hostPath": {
+              "path": "/var/data/kubelet/plugins/openshift-storage.cephfs.csi.ceph.com/"
+            }
+          },
+          {
+            "name": "csi-plugins-dir",
+            "hostPath": {
+              "path": "/var/data/kubelet/plugins"
+            }
+          },
+          {
+            "name": "registration-dir",
+            "hostPath": {
+              "path": "/var/data/kubelet/plugins_registry/"
+            }
+          },
+          {
+            "name": "pods-mount-dir",
+            "hostPath": {
+              "path": "/var/data/kubelet/pods"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
