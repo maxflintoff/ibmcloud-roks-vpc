@@ -265,3 +265,16 @@ resource "null_resource" "create_ocs" {
     EOT
   }
 }
+
+resource "null_resource" "patch_registry" {
+
+  depends_on = [
+    null_resource.create_ocs
+  ]
+
+  provisioner "local-exec" {
+    command = <<-EOT
+      oc patch configs.imageregistry.operator.openshift.io/cluster --patch '{"spec":{"disableRedirect":true}}' --type=merge;
+    EOT
+  }
+}
