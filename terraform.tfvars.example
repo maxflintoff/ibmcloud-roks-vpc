@@ -7,7 +7,7 @@ resource_group        = "Default"
 # If you set this to true then terraform will also manage your resource group - it's recommended to create one manually however as it rarely can be destroyed in sequence
 create_resource_group = false
 
-# This is only used as the resource name and has no bearing on the cluster addresses
+# This is used to identify the resource in your IBM cloud account - it will also appear in the cluster domain
 cluster_name          = "terraform-roks-vpc"
 
 #Following variables are all optional to set - listed below with their default values
