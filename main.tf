@@ -84,10 +84,14 @@ resource "ibm_resource_instance" "cos_instance" {
   location          = "global"
 }
 
+locals {
+  ocp_version = "${var.oc_version}_openshift"
+}
+
 resource "ibm_container_vpc_cluster" "cluster" {
   name         = var.cluster_name
   vpc_id       = ibm_is_vpc.vpc.id
-  kube_version = "4.4.20_openshift"
+  kube_version = local.ocp_version
   entitlement  = var.entitlement
   flavor       = var.worker_flavor
   worker_count = var.workers_per_zone
@@ -229,6 +233,8 @@ data "external" "get_disk_ids" {
 locals {
   disk_ids    = values(data.external.get_disk_ids.result)
   pv_template = templatefile("${path.module}/ocs/los-pv.tmpl", { devices = local.disk_ids })
+  los_sub_template = templatefile("${path.module}/ocs/los-subscription.tmpl", { oc_version = var.oc_version })
+  ocs_sub_template = templatefile("${path.module}/ocs/ocs-subscription.tmpl", { oc_version = var.oc_version })
 }
 
 resource "null_resource" "create_pvs" {
@@ -239,7 +245,7 @@ resource "null_resource" "create_pvs" {
 
   provisioner "local-exec" {
     command = <<-EOT
-    oc create -f ./ocs/los-subscription.yaml;
+    echo "${local.los_sub_template}" | oc create -f -
     sleep 180;
     echo "${local.pv_template}" | oc create -f -
     EOT
@@ -255,7 +261,7 @@ resource "null_resource" "create_ocs" {
 
   provisioner "local-exec" {
     command = <<-EOT
-      oc create -f ./ocs/ocs-subscription.yaml;
+      echo "${local.ocs_sub_template}" | oc create -f -
       sleep 180;
       oc create -f ./ocs/ocs-storagecluster.yaml;
       sleep 60;
