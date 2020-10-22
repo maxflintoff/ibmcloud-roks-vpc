@@ -18,6 +18,7 @@ There are a few variables that must be set for the install to take place success
 - [ibmcloud_api_key](https://cloud.ibm.com/docs/iam?topic=iam-userapikey)
 - resource_group
 - cluster_name
+- oc_version
   
 Additionally it is recommended to set additional variables:
 
