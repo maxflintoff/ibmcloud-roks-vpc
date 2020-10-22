@@ -15,6 +15,10 @@ variable "cluster_name" {
   type = string
 }
 
+variable "oc_version" {
+  type = string
+}
+
 variable "tags" {
   type    = list(string)
   default = []
