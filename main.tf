@@ -227,7 +227,7 @@ data "external" "get_disk_ids" {
     null_resource.sleep
   ]
 
-  program = ["/bin/bash", "-c", "echo \"$(for i in $(oc get node -l cluster.ocs.openshift.io/openshift-storage= -o jsonpath='{ .items[*].metadata.name }'); do oc debug node/$${i} -q -- chroot /host ls -l /dev/disk/by-id/ | grep -E 'vdd'; done)\" | jq --raw-input '[split(\" \") | .[9]] | map({ (.): . }) | add'  |  jq --slurp 'add'"]
+  program = ["/bin/bash", "-c", "echo \"$(for i in $(oc get node -l cluster.ocs.openshift.io/openshift-storage= -o jsonpath='{ .items[*].metadata.name }'); do oc debug node/$${i} -q -- chroot /host ls -l /dev/disk/by-id/ | grep -E 'vdd'; done)\" |  jq --raw-input '[split(\" \") | .[]] | map({ (.): . }) | add' | jq --slurp 'add | to_entries | .[] | select(.key | startswith(\"virtio\"))' | jq --slurp 'from_entries'"]
 }
 
 locals {
