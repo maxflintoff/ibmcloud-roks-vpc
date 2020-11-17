@@ -114,6 +114,10 @@ resource "ibm_container_vpc_cluster" "cluster" {
   }
 }
 
+locals {
+  wp_entitlement = var.entitlement == "cloud_pak" ? "entitlement" : "none"
+}
+
 resource "ibm_container_vpc_worker_pool" "ocs_pool" {
 
   depends_on = [
@@ -126,7 +130,7 @@ resource "ibm_container_vpc_worker_pool" "ocs_pool" {
   flavor            = var.ocs_flavor
   vpc_id            = ibm_is_vpc.vpc.id
   worker_count      = 1
-  entitlement       = var.entitlement
+  entitlement       = local.wp_entitlement
   labels = {
     "pool"   = "ocs"
     "flavor" = var.ocs_flavor
@@ -231,8 +235,8 @@ data "external" "get_disk_ids" {
 }
 
 locals {
-  disk_ids    = values(data.external.get_disk_ids.result)
-  pv_template = templatefile("${path.module}/ocs/los-pv.tmpl", { devices = local.disk_ids })
+  disk_ids         = values(data.external.get_disk_ids.result)
+  pv_template      = templatefile("${path.module}/ocs/los-pv.tmpl", { devices = local.disk_ids })
   los_sub_template = templatefile("${path.module}/ocs/los-subscription.tmpl", { oc_version = var.oc_version })
   ocs_sub_template = templatefile("${path.module}/ocs/ocs-subscription.tmpl", { oc_version = var.oc_version })
 }
