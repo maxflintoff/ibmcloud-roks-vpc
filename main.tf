@@ -268,7 +268,7 @@ resource "null_resource" "create_ocs" {
       echo "${local.ocs_sub_template}" | oc create -f -
       sleep 180;
       oc create -f ./ocs/ocs-storagecluster.yaml;
-      oc create -f ./ocs/rook-ceph-operator-config.yaml;
+      oc apply -f ./ocs/rook-ceph-operator-config.yaml;
       sleep 60;
       oc patch ClusterRole/system:node --patch "$(cat ./ocs/systemnode-clusterrole-patch.json)";
     EOT
