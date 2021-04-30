@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rook-ceph-operator-config
+  namespace: openshift-storage
+data:
+  CSI_PLUGIN_TOLERATIONS: |
+    - effect: NoSchedule
+      key: node.ocs.openshift.io/storage
+      operator: Exists
+  ROOK_CSI_KUBELET_DIR_PATH: /var/data/kubelet
