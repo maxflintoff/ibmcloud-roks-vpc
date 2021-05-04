@@ -1,6 +1,6 @@
 # ROKS & OCS for IBM Cloud
 
-This repository houses a set of automation for deploying infrastructure, a ROKS 4.4 Openshift cluster and Openshift Container Storage
+This repository houses a set of automation for deploying infrastructure, a ROKS 4.5 or 4.6 Openshift cluster and Openshift Container Storage
 
 ## Prerequisites
 

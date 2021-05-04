@@ -10,7 +10,7 @@ create_resource_group = false
 # This is used to identify the resource in your IBM cloud account - it will also appear in the cluster domain
 cluster_name          = "terraform-roks-vpc"
 
-# Chose the version of OpenShift to install - supported versions are ["4.3", "4.4", "4.5"]
+# Chose the version of OpenShift to install - supported versions are ["4.5", "4.6"]
 oc_version            = "4.5"
 
 #Following variables are all optional to set - listed below with their default values
